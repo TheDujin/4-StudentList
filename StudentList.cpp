@@ -1,28 +1,36 @@
 #include <iostream>
 #include <vector>
 #include <string.h>
+#include <cstdlib>
+#include <iomanip>
 
 using namespace std;
 
 struct Student {
   char firstName[80];
   char lastName[80];
-  float id;
+  int id;
   float gpa;
 };
-Student addStudent();
+Student addStudent(vector<Student> * listPtr);
 
-Student addStudent() {
+Student addStudent(vector<Student> * listPtr) {
   Student newStudent;
-  char input[81];
   cout << "Please enter the first name of the student." << endl << "First name: ";
   cin >> newStudent.firstName;
   cout << "Please enter the last name of the student." << endl << "Last name: ";
   cin >> newStudent.lastName;
   cout << "Please enter the student ID." << endl << "Student ID: ";
+  vector<int>::iterator itr;
+  for (itr = listPtr->begin(); itr != listPtr->end(); itr++) {
+    
+    cout << "0";
+  }
   cin >> newStudent.id;
-
-
+  cout << "Please enter the student\'s GPA (between 0 and 10, exclusive)." << endl << "Student\'s GPA: ";
+  cin >> newStudent.gpa;
+  cin.ignore();
+  //cout << setprecision(2) << fixed << newStudent.gpa << endl;
   return newStudent;
 }
 
@@ -38,10 +46,11 @@ int main() {
   
   while (running) {
     cout << "Please type \"ADD\", \"PRINT\", \"DELETE\", or \"QUIT\" as commands then press Enter." << endl << "Input: ";
+    cout << setprecision(2) << fixed;
     cin.getline(input, 80);
     if (strcmp(input, add) == 0) {
       cout << "Adding..." << endl;
-      addStudent();
+      sList.push_back(addStudent(listPtr));
     }
     else if (strcmp(input, print) == 0) {
       cout << "Printing..." << endl;
