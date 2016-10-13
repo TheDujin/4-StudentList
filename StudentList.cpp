@@ -13,6 +13,8 @@ struct Student {
   float gpa;
 };
 Student addStudent(vector<Student> * listPtr);
+void printOut(vector<Student> * listPtr);
+void deleteStudent(vector<Student> * listPtr);
 
 Student addStudent(vector<Student> * listPtr) {
   Student newStudent;
@@ -21,18 +23,36 @@ Student addStudent(vector<Student> * listPtr) {
   cout << "Please enter the last name of the student." << endl << "Last name: ";
   cin >> newStudent.lastName;
   cout << "Please enter the student ID." << endl << "Student ID: ";
-  vector<int>::iterator itr;
-  for (itr = listPtr->begin(); itr != listPtr->end(); itr++) {
-    
-    cout << "0";
-  }
   cin >> newStudent.id;
   cout << "Please enter the student\'s GPA (between 0 and 10, exclusive)." << endl << "Student\'s GPA: ";
   cin >> newStudent.gpa;
   cin.ignore();
-  //cout << setprecision(2) << fixed << newStudent.gpa << endl;
+  cout << setprecision(2) << fixed << endl;
   return newStudent;
 }
+
+void printOut(vector<Student> * listPtr) {
+  vector<Student>::iterator itr;
+  int i = 0;
+  if (listPtr->empty()) {
+    cout << "There are no students registered. You can add some with the \"ADD\" command." << endl;
+    return;
+  }
+  for (itr = listPtr->begin(); itr != listPtr->end(); itr++) {
+    Student student = * itr;
+    cout << "Name: " << student.lastName << ", " << student.firstName << "   ID: " << student.id << "   GPA: " << student.gpa << endl;
+    i++;
+  }
+}
+
+void deleteStudent(vector<Student> * listPtr) {
+  int idTarget;
+  cout << "Please enter the ID of the student you would like to delete." << endl << "ID: ";
+  cin >> idTarget;
+
+}
+
+
 
 int main() {
   char input[81];
@@ -54,9 +74,11 @@ int main() {
     }
     else if (strcmp(input, print) == 0) {
       cout << "Printing..." << endl;
+      printOut(listPtr);
     }
     else if (strcmp(input, del) == 0) {
       cout << "Deleting..." << endl;
+      deleteStudent(listPtr);
     }
     else if (strcmp(input, quit) == 0) {
       cout << "Quitting..." << endl << "Program terminated. Thank you for your time.";
